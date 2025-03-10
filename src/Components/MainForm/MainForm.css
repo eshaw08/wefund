@@ -1,0 +1,274 @@
+/* Main Container */
+.main-form {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Left Section */
+.main-form-left {
+  flex: 1;
+  background-color: #eff7e9;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main-form-left h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #046a07;
+}
+
+.main-form-left p {
+  color: #555;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Right Section */
+.main-form-right {
+  flex: 1.5;
+  background-color: #fff;
+  padding: 50px;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  overflow-y: auto;
+}
+
+/* Logo */
+.form-logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+
+/* Review Section */
+.review-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.review-section h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Media Upload Box */
+.media-upload-box {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 30px;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease;
+}
+
+.media-upload-box:hover {
+  border-color: #046a07;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.upload-icon {
+  font-size: 40px;
+  color: #666;
+}
+
+.upload-placeholder p {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+.upload-placeholder small {
+  color: #666;
+  font-size: 14px;
+}
+
+.upload-button {
+  background-color: #046a07;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+  background-color: #034f05;
+}
+
+/* Review Items */
+.review-item {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.review-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.review-header h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #046a07;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #eff7e9;
+}
+
+/* Review Item Content */
+.review-item p {
+  margin: 0;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  margin-top: 40px;
+  padding: 20px 0;
+}
+
+.preview-button {
+  padding: 12px 30px;
+  background-color: white;
+  border: 2px solid #046a07;
+  color: #046a07;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.preview-button:hover {
+  background-color: #eff7e9;
+}
+
+.launch-button {
+  padding: 12px 30px;
+  background-color: #046a07;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.launch-button:hover {
+  background-color: #034f05;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .main-form-right {
+      flex: 1;
+  }
+  
+  .review-section {
+      max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-form {
+      flex-direction: column;
+  }
+
+  .main-form-left {
+      padding: 30px;
+  }
+
+  .main-form-left h1 {
+      font-size: 28px;
+  }
+
+  .main-form-right {
+      padding: 30px;
+      border-radius: 0;
+  }
+
+  .button-group {
+      flex-direction: column;
+      padding: 20px;
+  }
+
+  .preview-button,
+  .launch-button {
+      width: 100%;
+  }
+
+  .media-upload-box {
+      padding: 20px;
+  }
+
+  .review-item {
+      padding: 15px;
+  }
+}
+
+/* Accessibility */
+.upload-button:focus,
+.edit-button:focus,
+.preview-button:focus,
+.launch-button:focus {
+  outline: 2px solid #046a07;
+  outline-offset: 2px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.review-section {
+  animation: fadeIn 0.3s ease-in-out;
+}

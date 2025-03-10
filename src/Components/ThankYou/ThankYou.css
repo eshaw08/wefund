@@ -1,0 +1,189 @@
+.thank-you {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9f7e9 100%);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.thank-you-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thank-you h1 {
+  font-size: 3rem;
+  color: #046a07;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.thank-you p {
+  font-size: 1.3rem;
+  color: #444;
+  margin-bottom: 30px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.home-link {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  color: #fff;
+  background-color: #046a07;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(4, 106, 7, 0.2);
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.home-link:hover {
+  background-color: #034a05;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(4, 106, 7, 0.3);
+}
+
+.campaign-details {
+  margin-top: 30px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  width: 100%;
+  transition: transform 0.3s ease;
+  box-sizing: border-box;
+}
+
+.campaign-details:hover {
+  transform: translateY(-5px);
+}
+
+.campaign-details h2 {
+  font-size: 2rem;
+  color: #046a07;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.campaign-details p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 12px;
+  font-style: normal;
+}
+
+.donation-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #046a07;
+  margin: 15px 0;
+  display: block;
+}
+
+.progress-container {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.progress-bar {
+  height: 10px;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #046a07, #05a109);
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
+
+.heart-icon {
+  color: #e91e63;
+  font-size: 2rem;
+  margin: 0 5px;
+  animation: pulse 1.5s infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.social-share {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.social-button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.social-button:hover {
+  transform: scale(1.1);
+}
+
+.facebook {
+  background-color: #3b5998;
+}
+
+.twitter {
+  background-color: #1da1f2;
+}
+
+.whatsapp {
+  background-color: #25d366;
+}
+
+@media (max-width: 768px) {
+  .thank-you h1 {
+    font-size: 2.2rem;
+  }
+  
+  .campaign-details {
+    padding: 20px;
+  }
+  
+  .donation-amount {
+    font-size: 2rem;
+  }
+}

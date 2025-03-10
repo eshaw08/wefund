@@ -1,0 +1,850 @@
+/* ManagePage.css */
+/* Main Container */
+.manage-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* White background for the main content */
+  padding-top: 80px; /* Space for the navbar */
+}
+
+/* Navbar Integration */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure navbar is above other content */
+  background-color: #ffffff; /* White background for the navbar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Sidebar Styling */
+.tabs {
+  width: 250px; /* Fixed width for the sidebar */
+  background-color: #eff7e9; /* Light green background for the sidebar */
+  padding: 20px;
+  border-radius: 15px; /* Rounded corners for the sidebar */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  height: fit-content; /* Ensure the sidebar height adjusts to content */
+}
+
+.tabs button {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between icon and text */
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: transparent;
+  color: #000000; /* Black text for tabs */
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.tabs button:hover {
+  background-color: rgba(4, 106, 7, 0.1); /* Slight green hover effect */
+}
+
+.tabs button.active {
+  background-color: transparent; /* No background for active tab */
+  color: #046a07; /* Dark green text for active tab */
+  opacity: 1; /* Fully visible */
+}
+
+.tabs button:not(.active) {
+  opacity: 0.5; /* Make inactive tabs transparent */
+}
+
+.tab-icon {
+  width: 45px; /* Small icon size */
+  height: 45px; /* Small icon size */
+}
+
+.tab-content {
+  flex: 1; /* Take up remaining space */
+  background-color: #ffffff; /* White background for the main content */
+  padding: 20px;
+  border-radius: 15px; /* Rounded corners for the content */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Centering the Sidebar and Content */
+.main-container {
+  display: flex;
+  justify-content: center; /* Center the sidebar and content */
+  gap: 20px; /* Space between sidebar and content */
+  width: 100%;
+  max-width: 1200px; /* Limit the overall width */
+  margin: 0 auto; /* Center the entire layout */
+  padding: 20px; /* Padding for the main container */
+}
+
+/* Dashboard Tab */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-greeting h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #046a07; /* Dark green for the username */
+}
+
+.user-greeting p {
+  margin: 0;
+  color: #666;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* View Button */
+.view-btn {
+  border: 2px solid #046a07;
+  color: #046a07;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-btn:hover {
+  background-color: #046a07;
+  color: white;
+}
+
+/* Share Button */
+.share-btn {
+  background-color: #046a07;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.share-btn:hover {
+  background-color: #034a05;
+}
+
+.campaign-title {
+  font-size: 28px;
+  margin: 0;
+  color: #046a07; /* Dark green for the campaign title */
+}
+
+.goal-amount {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin: 20px 0;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #046a07, #05a109);
+  border-radius: 5px;
+  transition: width 0.5s ease-in-out;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Edit Button */
+.edit-btn {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn .underline {
+  text-decoration: underline;
+}
+
+.edit-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Copy Unique Link Button */
+.copy-link-btn {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.copy-link-btn .underline {
+  text-decoration: underline;
+}
+
+.copy-link-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Set Up Transfer */
+.setup-transfer {
+  color: #046a07;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.setup-transfer .underline {
+  text-decoration: underline;
+}
+
+.setup-transfer:hover {
+  color: #034a05;
+}
+
+/* Donation Tab */
+.donation-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.raised-amount-card {
+  background-color: #eff7e9; /* Light green background */
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.raised-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.raised-info p {
+  margin: 0;
+  font-size: 18px;
+  color: #046a07; /* Dark green for text */
+}
+
+.share-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.share-text {
+  font-size: 16px;
+  color: #046a07;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.arrow {
+  font-size: 20px;
+  color: #046a07;
+}
+
+.share-icon {
+  width: 90px;
+  height: 90px;
+  margin-left: auto; /* Push the image to the right */
+}
+
+.offline-donation-section {
+  margin-bottom: 20px;
+}
+
+.add-offline-donation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #046a07; /* Dark green for buttons */
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.add-offline-donation:hover {
+  background-color: #034a05; /* Darker green on hover */
+}
+
+.offline-donation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background-color: #eff7e9; /* Light green background */
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.offline-donation-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.offline-donation-form button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #046a07; /* Dark green for buttons */
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.offline-donation-form button:hover {
+  background-color: #034a05; /* Darker green on hover */
+}
+
+.donors-list {
+  background-color: #eff7e9; /* Light green background */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.donors-list h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #046a07; /* Dark green for text */
+}
+
+.donor-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.donor-item span {
+  font-size: 16px;
+}
+
+/* Transfer Tab */
+.transfer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ffffff; /* White background for the transfer section */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+.transfer-container h2 {
+  font-size: 24px;
+  color: #046a07; /* Dark green for the heading */
+  margin-bottom: 10px;
+}
+.transfer-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #046a07; /* Dark green for buttons */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.transfer-container p {
+  font-size: 16px;
+  color: #333; /* Dark gray for text */
+  margin: 10px 0;
+}
+.transfer-container p strong {
+  color: #046a07; /* Dark green for labels like "Wallet Address" and "Wallet Balance" */
+}
+
+.transfer-setting-card,
+.wallet-card,
+.googlepay-card {
+  background-color: #eff7e9; /* Light green background */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #046a07; /* Dark green for text */
+}
+
+.transfer-setting-card select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.wallet-card button,
+.googlepay-card button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #046a07; /* Dark green for buttons */
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.wallet-card button:hover,
+.googlepay-card button:hover {
+  background-color: #034a05; /* Darker green on hover */
+}
+
+.googlepay-input {
+  display: flex;
+  gap: 10px;
+}
+
+.googlepay-input input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex: 1;
+}
+
+.googlepay-input button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #046a07; /* Dark green for buttons */
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.googlepay-input button:hover {
+  background-color: #034a05; /* Darker green on hover */
+}
+
+/* Edit Modal Styles */
+.edit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-modal h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #046a07;
+}
+
+.edit-modal input,
+.edit-modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.edit-modal textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.edit-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.edit-modal-buttons button:first-child {
+  background-color: #046a07;
+  color: white;
+}
+
+.edit-modal-buttons button:first-child:hover {
+  background-color: #034a05;
+}
+
+.edit-modal-buttons button:last-child {
+  background-color: #ddd;
+  color: #333;
+}
+
+.edit-modal-buttons button:last-child:hover {
+  background-color: #ccc;
+}
+
+/* Preview Close Button */
+.preview-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.preview-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #046a07;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.preview-close-btn:hover {
+  color: #034a05;
+}
+
+/* Share Popup */
+.share-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.share-popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.share-popup h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #046a07;
+}
+
+.share-popup-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.share-popup-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #046a07;
+  color: white;
+}
+
+.share-popup-buttons button:hover {
+  background-color: #034a05;
+}
+
+/* Copy Link Popup */
+.copy-link-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.copy-link-popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.copy-link-popup h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #046a07;
+}
+
+.copy-link-popup input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.copy-link-popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.copy-link-popup-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.copy-link-popup-buttons button:first-child {
+  background-color: #046a07;
+  color: white;
+}
+
+.copy-link-popup-buttons button:first-child:hover {
+  background-color: #034a05;
+}
+
+.copy-link-popup-buttons button:last-child {
+  background-color: #ddd;
+  color: #333;
+}
+
+.copy-link-popup-buttons button:last-child:hover {
+  background-color: #ccc;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  /* Mobile Tab Menu */
+  .tabs {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    z-index: 1000;
+  }
+
+  .tabs button {
+    flex-direction: column;
+    padding: 8px 5px;
+    margin: 0;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .tab-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+  }
+
+  /* Adjust main content for bottom nav */
+  .manage-page {
+    padding-bottom: 80px;
+  }
+
+  /* Mobile Cards */
+  .raised-amount-card,
+  .transfer-setting-card,
+  .wallet-card,
+  .googlepay-card {
+    border-radius: 20px;
+    margin: 10px 0;
+  }
+
+  /* Mobile Dashboard */
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 10px;
+  }
+
+  .dashboard-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 10px;
+  }
+
+  /* Mobile Donations */
+  .offline-donation-section {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 15px;
+  }
+
+  .offline-donation-form {
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+
+  .donors-list {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  .donor-item {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: none;
+  }
+
+  /* Mobile Transfer */
+  .googlepay-input {
+    display: grid;
+    gap: 10px;
+  }
+
+  .googlepay-input button {
+    width: 100%;
+  }
+}
+
+/* Smaller Mobile Devices */
+@media screen and (max-width: 480px) {
+  /* Small Mobile Cards */
+  .raised-amount-card {
+    padding: 15px;
+  }
+
+  .raised-info p {
+    font-size: 16px;
+  }
+
+  /* Small Mobile Actions */
+  .action-buttons,
+  .dashboard-actions {
+    grid-template-columns: 1fr;
+  }
+
+  /* Small Mobile Text */
+  .campaign-title {
+    font-size: 22px;
+  }
+
+  .goal-amount {
+    font-size: 16px;
+  }
+
+  /* Small Mobile Donors */
+  .donors-list h3 {
+    font-size: 18px;
+  }
+
+  .donor-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .donor-item span:last-child {
+    font-weight: bold;
+    color: #046a07;
+  }
+}
+
+/* Extra Small Mobile Devices */
+@media screen and (max-width: 320px) {
+  .tabs button {
+    font-size: 10px;
+  }
+
+  .tab-icon {
+    width: 20px;
+    height: 20px;
+  }
+}

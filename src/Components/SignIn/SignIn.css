@@ -1,0 +1,173 @@
+/* SignIn.css */
+.signin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  background: url("../../assets/backgroundImage.png") no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px;
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Move sign-in box slightly up */
+.signin-card {
+  width: 380px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 30px;
+  z-index: 2;
+  position: relative;
+  margin-top: -40px;
+}
+
+/* Logo */
+.logo-image {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+/* Welcome text */
+.welcome-heading {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.subtext {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Sign-in button */
+.signin-button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Google sign-in button */
+.signin-button.google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between icon and text */
+  background: white;
+  color: #4285f4;
+  border: 1px solid #4285f4;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 25px; /* Adjust this for more or less curve */
+}
+
+.signin-button.google:hover {
+  background: #e8f0fe;
+}
+
+/* Divider */
+.divider {
+  margin: 15px 0;
+  color: #999;
+  font-size: 14px;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  display: inline-block;
+  width: 40%;
+  height: 1px;
+  background: #ccc;
+  margin: 0 5px;
+}
+
+/* Email input */
+.form-container {
+  width: 100%;
+}
+
+.email-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Continue button */
+.signin-button.continue {
+  background: #ddd;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Active state for continue button */
+.signin-button.continue.active {
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.signin-button.continue.active:hover {
+  background: #0056b3;
+}
+
+/* Privacy notice */
+.privacy {
+  font-size: 12px;
+  color: #666;
+  margin-top: 15px;
+}
+
+.privacy a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.privacy a:hover {
+  text-decoration: underline;
+}
+
+/* Sign-up link */
+.signup-link {
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Ensure other sections are not affected */
+body:not(.signin-page) {
+  background: none !important;
+}

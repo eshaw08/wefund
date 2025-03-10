@@ -1,0 +1,69 @@
+/* AllCampaigns.css */
+
+.all-campaigns-section {
+    background-color: #eff7e9;
+    padding: 2rem 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .campaigns-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .campaign-card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .campaign-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .campaign-card .details {
+    padding: 1rem;
+  }
+  
+  .campaign-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .campaign-card p {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-bottom: 0.75rem;
+  }
+  
+  .campaign-card .progress-bar {
+    width: 100%;
+    background-color: #e5e7eb;
+    border-radius: 0.25rem;
+    height: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .campaign-card .progress-bar .progress {
+    height: 100%;
+    background-color: #10b981;
+    border-radius: 0.25rem;
+  }
+  
+  .campaign-card .donation-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: #4b5563;
+  }

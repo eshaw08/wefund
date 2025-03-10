@@ -1,0 +1,2 @@
+const wefund = await WeFund.attach("0x5d96219E0B08F294dEB6aF548E4A4904c047a43");
+const WeFund = await ethers.getContractFactory("WeFund");

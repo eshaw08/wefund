@@ -1,0 +1,242 @@
+/* General layout for the form page */
+.form-page {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  background-color: #f5f5f5;
+}
+
+/* Left Section */
+.left-section {
+  width: 100%;
+  background-color: #eff7e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  z-index: 1;
+}
+
+.text-content {
+  text-align: left;
+}
+
+.text-content h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.text-content p {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Logo placement for desktop */
+.form-logo {
+  width: 50px;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+}
+
+/* Right Section with Overlapping Effect */
+.right-section {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Form styling */
+form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+select, input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Tags for selection */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.tag {
+  padding: 10px 20px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  background-color: #046a07;
+  color: #fff;
+}
+
+.tag.selected {
+  background-color: #046a07;
+  color: #fff;
+  border: 2px solid #045a06;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit Button */
+.form-submit {
+  background-color: #046a07;
+  color: #fff;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.form-submit:hover {
+  background-color: #45a049;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .form-page {
+    display: block;
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #fff;
+  }
+
+  .left-section {
+    position: relative;
+    padding: 60px 0 20px; /* Increased top padding to accommodate logo */
+    background-color: transparent;
+  }
+
+  .form-logo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    margin: 0;
+    display: block;
+  }
+
+  .text-content {
+    margin-top: 20px;
+  }
+
+  .text-content h1 {
+    font-size: 24px;
+  }
+
+  .right-section {
+    position: relative;
+    right: 0;
+    top: 0;
+    transform: none;
+    width: 100%;
+    box-shadow: none;
+    padding: 20px 0;
+  }
+
+  .tags {
+    gap: 8px;
+  }
+
+  .tag {
+    padding: 8px 16px;
+  }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 480px) {
+  .form-page {
+    padding: 16px;
+  }
+
+  .form-logo {
+    width: 100px;
+  }
+
+  .text-content h1 {
+    font-size: 22px;
+  }
+
+  .text-content p {
+    font-size: 14px;
+  }
+
+  .tag {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+}
+
+/* Error message styling */
+.error-message {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 5px;
+  padding: 8px;
+  background-color: #fef2f2;
+  border-radius: 4px;
+  border: 1px solid #fee2e2;
+}
+
+/* Review button positioning */
+.review-button {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 24px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.review-button:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.review-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
