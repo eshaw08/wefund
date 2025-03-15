@@ -125,26 +125,36 @@ const ManagePage = () => {
     }
 
     try {
-      const donationRef = collection(db, "donations");
-      await addDoc(donationRef, {
-        campaignId,
-        name: offlineDonation.name,
-        amount: Number(offlineDonation.amount),
-        type: "offline",
-        timestamp: new Date(),
-      });
-
-      // Use the context function to update campaign progress
+      const donationAmount = Number(offlineDonation.amount);
+      
+      // First update campaign progress through context
       const success = await updateCampaignProgress(
         campaignId, 
-        Number(offlineDonation.amount), 
+        donationAmount,
         offlineDonation.name
       );
 
       if (success) {
+        // Then add to donations collection
+        const donationRef = collection(db, "donations");
+        await addDoc(donationRef, {
+          campaignId,
+          name: offlineDonation.name,
+          amount: donationAmount,
+          type: "offline",
+          timestamp: new Date(),
+        });
+
+        // Reset form and show success message
         setShowOfflineDonation(false);
         setOfflineDonation({ name: "", amount: "" });
-        alert(`Donation of ₹${Number(offlineDonation.amount).toLocaleString()} added successfully!`);
+        alert(`Donation of ₹${donationAmount.toLocaleString()} added successfully!`);
+
+        // Update local campaign data from context
+        const updatedCampaign = getCampaignById(campaignId);
+        if (updatedCampaign) {
+          setCampaignData(updatedCampaign);
+        }
       } else {
         alert("Failed to update campaign progress. Please try again.");
       }
@@ -225,7 +235,11 @@ const ManagePage = () => {
     const currentData = contextCampaign || campaignData;
 
     if (!currentData?.goalAmount || currentData.goalAmount <= 0) return 0;
-    // Check both raisedAmount and amountRaised fields
+    // Use progressPercentage from context if available, otherwise calculate
+    if (currentData.progressPercentage !== undefined) {
+      return currentData.progressPercentage;
+    }
+    // Fallback to manual calculation
     const raised = parseFloat(currentData?.raisedAmount || currentData?.amountRaised || 0);
     const goal = parseFloat(currentData?.goalAmount || 1);
     const percentage = (raised / goal) * 100;
@@ -266,6 +280,10 @@ const ManagePage = () => {
   
       {/* Progress Bar with live updates */}
       <div className="progress-bar-container">
+        <div className="progress-amounts">
+          <span>₹{currentCampaign?.amountRaised?.toLocaleString() || "0"}</span>
+          <span>₹{currentCampaign?.goalAmount?.toLocaleString() || "0"}</span>
+        </div>
         <div className="progress-bar">
           <div
             className="progress"
@@ -275,17 +293,9 @@ const ManagePage = () => {
             }}
           ></div>
         </div>
-        <div className="progress-details">
-          <span className="progress-text">{calculateProgress().toFixed(1)}%</span>
-        </div>
       </div>
       
-      {/* Display raised amount with percentage */}
       <div className="raised-summary">
-        <p>
-          Raised: ₹{currentCampaign?.amountRaised?.toLocaleString() || "0"} 
-          ({calculateProgress().toFixed(1)}% of goal)
-        </p>
         <p>
           Total Donations: {currentCampaign?.donationsCount || donors.length || 0}
         </p>
@@ -312,7 +322,7 @@ const ManagePage = () => {
     <div className="donation-container">
       <div className="raised-amount-card">
         <div className="raised-info">
-          <p>You have raised ₹{currentCampaign?.amountRaised?.toLocaleString() || "0"} so far. Go further by sharing</p>
+          <p>You have raised ₹{currentCampaign?.amountRaised?.toLocaleString() || "0"} of your ₹{currentCampaign?.goalAmount?.toLocaleString() || "0"} goal</p>
           <div className="progress-bar" style={{ margin: "10px 0" }}>
             <div
               className="progress"
@@ -322,7 +332,6 @@ const ManagePage = () => {
               }}
             ></div>
           </div>
-          <p>{calculateProgress().toFixed(1)}% of your ₹{currentCampaign?.goalAmount?.toLocaleString() || "0"} goal</p>
           <div className="share-section">
             <span className="share-text">Share fundraisers <span className="arrow">→</span></span>
             <img src={msgIcon} alt="Share" className="share-icon" onClick={handleShare} />

@@ -1,0 +1,58 @@
+.progress-bar-container {
+    width: 100%;
+    margin: 15px 0;
+  }
+  
+  .progress-bar {
+    height: 8px;
+    background-color: #e6e6e6;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+  }
+  
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .progress-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+  
+  .progress-circle-svg {
+    transform: rotate(-90deg);
+  }
+  
+  .progress-circle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .progress-circle-text .percentage {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .progress-circle-text .raised,
+  .progress-circle-text .goal {
+    display: block;
+    font-size: 12px;
+    color: #666;
+  }

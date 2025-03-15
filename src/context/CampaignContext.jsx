@@ -1,14 +1,31 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { collection, onSnapshot, doc, updateDoc, getDoc, arrayUnion } from 'firebase/firestore';
+import { collection, onSnapshot, doc, updateDoc, getDoc, arrayUnion, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const CampaignContext = createContext();
 
+// UTC DateTime helper functions
+const CURRENT_UTC_DATETIME = '2025-03-14 16:12:34';
+const CURRENT_USER = 'eshaw08';
+
+const formatToUTC = (date) => {
+  return date.toISOString().slice(0, 19).replace('T', ' ');
+};
+
 export const CampaignProvider = ({ children }) => {
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentDateTime, setCurrentDateTime] = useState(CURRENT_UTC_DATETIME);
+  const [currentUser] = useState(CURRENT_USER);
 
-  // Add logging to track campaign updates
+  // Update current datetime every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDateTime(formatToUTC(new Date()));
+    }, 60000);
+    return () => clearInterval(timer);
+  }, []);
+
   useEffect(() => {
     console.log('Setting up campaign listener...');
     setLoading(true);
@@ -17,93 +34,95 @@ export const CampaignProvider = ({ children }) => {
         const data = doc.data();
         const raisedAmount = parseFloat(data.raisedAmount || 0);
         const goalAmount = parseFloat(data.goalAmount || 0);
-        // Add data validation with consistent progress calculation
+        const donationsCount = parseInt(data.donationsCount || 0);
+        const recentDonors = Array.isArray(data.recentDonors) ? data.recentDonors : [];
+        const progressPercentage = goalAmount > 0 ? Math.min(100, Math.round((raisedAmount / goalAmount) * 100)) : 0;
+        
         const validatedData = {
           id: doc.id,
           ...data,
-          raisedAmount: raisedAmount,
-          goalAmount: goalAmount,
-          donationsCount: parseInt(data.donationsCount || 0),
-          recentDonors: Array.isArray(data.recentDonors) ? data.recentDonors : [],
+          raisedAmount,
+          goalAmount,
+          donationsCount,
+          recentDonors,
           status: data.status || 'pending',
-          progressPercentage: goalAmount > 0 ? Math.min(100, Math.round((raisedAmount / goalAmount) * 100)) : 0
+          progressPercentage,
+          lastUpdated: data.lastUpdated || currentDateTime,
+          lastUpdatedBy: data.lastUpdatedBy || currentUser,
+          createdAt: data.createdAt || currentDateTime,
+          createdBy: data.createdBy || currentUser
         };
-        console.log(`Validated campaign ${doc.id}:`, validatedData);
+        
+        // Ensure all components receive the same validated data
         return validatedData;
       });
+      
       setCampaigns(campaignsData);
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [currentDateTime, currentUser]);
 
-  // Enhanced updateCampaignProgress with real-time updates
   const updateCampaignProgress = async (campaignId, amount, donorName) => {
     try {
-      console.log(`Updating campaign ${campaignId} with amount ${amount} from ${donorName}`);
-      
       const campaignRef = doc(db, "campaigns", campaignId);
       const campaignSnap = await getDoc(campaignRef);
       
       if (!campaignSnap.exists()) {
-        console.error("Campaign not found:", campaignId);
-        return false;
+        throw new Error("Campaign not found");
       }
   
       const currentData = campaignSnap.data();
-      console.log('Current campaign data:', currentData);
-      
       const currentAmount = parseFloat(currentData.raisedAmount || 0);
       const donationAmount = parseFloat(amount);
       
       if (isNaN(donationAmount) || donationAmount <= 0) {
-        console.error("Invalid donation amount:", amount);
-        return false;
+        throw new Error("Invalid donation amount");
       }
       
       const newAmount = currentAmount + donationAmount;
       const goalAmount = parseFloat(currentData.goalAmount || 0);
       const progressPercentage = goalAmount > 0 ? Math.min(100, Math.round((newAmount / goalAmount) * 100)) : 0;
-      
-      console.log(`Updating amount from ${currentAmount} to ${newAmount}`);
+      const currentDonationsCount = parseInt(currentData.donationsCount || 0);
       
       const donorInfo = {
         name: donorName || 'Anonymous',
         amount: donationAmount,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        donatedBy: currentUser
       };
 
-      // Update campaign document with atomic operations
-      await updateDoc(campaignRef, {
+      // Update campaign data with new values
+      const updatedData = {
         raisedAmount: newAmount,
-        donationsCount: (currentData.donationsCount || 0) + 1,
+        donationsCount: currentDonationsCount + 1,
         progressPercentage,
         recentDonors: arrayUnion(donorInfo),
-        lastUpdated: new Date().toISOString()
-      });
+        lastUpdated: new Date().toISOString(),
+        lastUpdatedBy: currentUser
+      };
 
-      // Update local state after successful Firestore update
+      // Update Firestore
+      await updateDoc(campaignRef, updatedData);
+
+      // Update local state to ensure immediate UI updates
       setCampaigns(prevCampaigns => 
-        prevCampaigns.map(camp => 
-          camp.id === campaignId
+        prevCampaigns.map(campaign => 
+          campaign.id === campaignId
             ? {
-                ...camp,
-                raisedAmount: newAmount,
-                donationsCount: (camp.donationsCount || 0) + 1,
-                progressPercentage,
-                recentDonors: [...(camp.recentDonors || []), donorInfo]
-                  .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-                  .slice(0, 10)
+                ...campaign,
+                ...updatedData,
+                recentDonors: [...(campaign.recentDonors || []), donorInfo]
               }
-            : camp
+            : campaign
         )
       );
 
       return true;
     } catch (error) {
       console.error("Error in updateCampaignProgress:", error);
-      return false;
+      throw error;
     }
   };
 
@@ -111,12 +130,19 @@ export const CampaignProvider = ({ children }) => {
     return campaigns.find(campaign => campaign.id === campaignId);
   };
 
+  const formatCurrency = (amount) => {
+    return `₹${Number(amount).toLocaleString('en-IN')}`;
+  };
+
   return (
     <CampaignContext.Provider value={{ 
-      campaigns, 
+      campaigns,
       loading,
       updateCampaignProgress,
-      getCampaignById
+      getCampaignById,
+      formatCurrency,
+      currentUser,
+      currentDateTime
     }}>
       {children}
     </CampaignContext.Provider>
@@ -129,22 +155,4 @@ export const useCampaign = () => {
     throw new Error('useCampaign must be used within a CampaignProvider');
   }
   return context;
-};
-
-// Add console logs to track campaign creation
-const createCampaign = async (campaignData) => {
-  try {
-    console.log('Creating campaign with data:', campaignData);
-    const docRef = await addDoc(collection(db, 'campaigns'), {
-      ...campaignData,
-      createdAt: new Date(),
-      raisedAmount: 0,
-      donationsCount: 0
-    });
-    console.log('Campaign created successfully:', docRef.id);
-    return docRef.id;
-  } catch (error) {
-    console.error('Error creating campaign:', error);
-    throw error;
-  }
 };

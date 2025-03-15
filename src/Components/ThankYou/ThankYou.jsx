@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { useCampaign } from '../../context/CampaignContext';
 import './ThankYou.css';
 
 const ThankYou = () => {
   const location = useLocation();
-  const { campaign, donationAmount } = location.state || {};
+  const { campaign: initialCampaign, donationAmount } = location.state || {};
   const [progressWidth, setProgressWidth] = useState(0);
+  const { getCampaignById } = useCampaign();
   
-  // Use progress percentage directly from campaign context
+  // Get real-time campaign data from context
+  const campaign = initialCampaign ? getCampaignById(initialCampaign.id) : null;
   const percentageRaised = campaign?.progressPercentage || 0;
-  
+
   useEffect(() => {
-    // Animate progress bar on component mount
-    setTimeout(() => {
+    // Update progress width whenever percentageRaised changes
+    setProgressWidth(0);
+    const timer = setTimeout(() => {
       setProgressWidth(percentageRaised);
-    }, 300);
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, [percentageRaised]);
 
   return (
     <div className="thank-you">
       <div className="thank-you-container">
-        <h1>Thank You for Your Support! <span className="heart-icon">💙</span></h1>
+        <h1>Thank You for Your Support! <span className="heart-icon">❤️</span></h1>
         <p>"No act of kindness, no matter how small, is ever wasted."</p>
 
         {/* Display campaign and donation details if available */}

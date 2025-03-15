@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { db } from "../../firebase";
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion, addDoc, collection } from "firebase/firestore";
 import { ethers } from "ethers";
 import { useCampaign } from "../../context/CampaignContext";
 import "./DonatePage.css";
@@ -12,9 +12,9 @@ const DonatePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { campaign: locationCampaign } = location.state || {};
-  
+
   const { updateCampaignProgress, campaigns } = useCampaign();
-  
+
   const [campaign, setCampaign] = useState(locationCampaign || null);
   const [donationAmount, setDonationAmount] = useState("");
   const [walletConnected, setWalletConnected] = useState(false);
@@ -29,12 +29,12 @@ const DonatePage = () => {
     const fetchCampaign = async () => {
       if (!campaign) {
         const contextCampaign = campaigns.find(c => c.id === campaignId);
-        
+
         if (contextCampaign) {
           setCampaign(contextCampaign);
           return;
         }
-        
+
         try {
           setTransactionStatus("Loading campaign data...");
           const campaignRef = doc(db, "campaigns", campaignId);
@@ -51,7 +51,7 @@ const DonatePage = () => {
         }
       }
     };
-    
+
     fetchCampaign();
   }, [campaignId, campaign, campaigns]);
 
@@ -86,7 +86,7 @@ const DonatePage = () => {
       setWalletAddress(userWallet);
       setWalletConnected(true);
       setTransactionStatus(`Connected: ${userWallet.slice(0, 6)}...${userWallet.slice(-4)}`);
-      
+
       // Clear status message after 3 seconds
       setTimeout(() => {
         setTransactionStatus("");
@@ -121,19 +121,19 @@ const DonatePage = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const ethAmount = (parseFloat(donationAmount) / ethToINR).toFixed(6);
-      
+
       // Step 2: Request transaction approval from wallet
       setTransactionStatus("Waiting for wallet confirmation...");
       console.log(`Sending ${ethAmount} ETH to ${campaign.walletAddress}`);
-      
+
       const tx = await signer.sendTransaction({
         to: campaign.walletAddress,
         value: ethers.parseEther(ethAmount.toString()),
       });
-      
+
       console.log("Transaction sent:", tx.hash);
       setTransactionStatus("Transaction submitted, waiting for confirmation...");
-      
+
       // Step 3: Wait for transaction confirmation
       const receipt = await tx.wait();
       console.log("Transaction confirmed:", receipt);
@@ -143,18 +143,18 @@ const DonatePage = () => {
       try {
         const donationAmount_float = parseFloat(donationAmount);
         const campaignRef = doc(db, "campaigns", campaign.id);
-        
+
         // Use raisedAmount for consistency with context
         const currentAmount = campaign.raisedAmount || campaign.amountRaised || 0;
         const newAmount = currentAmount + donationAmount_float;
-        
+
         const donorInfo = { 
           name: donorName || walletAddress, 
           amount: donationAmount_float,
           timestamp: new Date().toISOString(),
           txHash: tx.hash
         };
-        
+
         if (isNaN(donationAmount_float)) {
           throw new Error("Invalid donation amount");
         }
@@ -171,17 +171,17 @@ const DonatePage = () => {
 
         // Update the campaign data through context to ensure consistent updates
         const success = await updateCampaignProgress(campaign.id, donationAmount_float, donorName || walletAddress);
-        
+
         if (!success) {
           throw new Error("Failed to update campaign progress");
         }
-        
+
         console.log("Firestore updated successfully");
         setTransactionStatus("Success! Redirecting to thank you page...");
-        
+
         // Get the updated campaign data from context
         const updatedCampaign = campaigns.find(c => c.id === campaign.id);
-        
+
         // Navigate to thank you page with updated campaign data
         setTimeout(() => {
           navigate("/thank-you", { 
@@ -202,7 +202,7 @@ const DonatePage = () => {
       } catch (firestoreError) {
         console.error("Error updating Firestore:", firestoreError);
         setTransactionStatus("Transaction successful! Redirecting...");
-        
+
         // Even if Firestore update fails, we should still show thank you page
         setTimeout(() => {
           navigate("/thank-you", { 

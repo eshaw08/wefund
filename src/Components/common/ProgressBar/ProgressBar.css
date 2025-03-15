@@ -1,0 +1,126 @@
+.progress-bar-container {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e6e6e6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #27AE60, #2ECC71);
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  will-change: width;
+  backface-visibility: hidden;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.progress-text {
+  font-weight: 500;
+}
+
+.progress-percentage {
+  font-weight: 600;
+  color: #27AE60;
+}
+
+/* Circle Progress Bar */
+.progress-circle {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-circle-svg {
+  transform: rotate(-90deg);
+}
+
+.progress-circle-text {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.progress-circle-text .percentage {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #27AE60;
+}
+
+.progress-circle-text .raised,
+.progress-circle-text .goal {
+  font-size: 0.8em;
+  color: #555;
+}
+
+/* Size Variants */
+.progress-bar-small .progress-bar {
+  height: 4px;
+}
+
+.progress-bar-large .progress-bar {
+  height: 12px;
+}
+
+.progress-circle-small {
+  width: 60px;
+  height: 60px;
+}
+
+.progress-circle-medium {
+  width: 120px;
+  height: 120px;
+}
+
+.progress-circle-large {
+  width: 150px;
+  height: 150px;
+}
+
+.progress-circle-small .progress-circle-text .percentage {
+  font-size: 14px;
+}
+
+.progress-circle-small .progress-circle-text .raised,
+.progress-circle-small .progress-circle-text .goal {
+  font-size: 10px;
+}
+
+.progress-circle-large .progress-circle-text .percentage {
+  font-size: 24px;
+}
+
+.progress-circle-large .progress-circle-text .raised,
+.progress-circle-large .progress-circle-text .goal {
+  font-size: 16px;
+}
+
+/* Animations */
+@keyframes progress-fill {
+  from { width: 0; }
+  to { width: var(--progress-width); }
+}
+
+@keyframes circle-progress {
+  from { stroke-dasharray: 0 100; }
+  to { stroke-dasharray: var(--progress) 100; }
+}

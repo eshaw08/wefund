@@ -3,6 +3,7 @@ import { X, Heart, ShieldCheck, Users, Share } from 'lucide-react';
 import './FundraiserPreview.css';
 import heartIcon from '../../assets/heart.png';
 import { useCampaign } from '../../context/CampaignContext';
+import ProgressBar from '../common/ProgressBar/ProgressBar';
 
 const FundraiserPreview = ({ onClose, campaignData, navigateToDonatePage, isStandalone, isManagePage }) => {
   const { getCampaignById } = useCampaign();
@@ -25,21 +26,6 @@ const FundraiserPreview = ({ onClose, campaignData, navigateToDonatePage, isStan
   const userName = creatorName || 'Anonymous Organizer';
   const totalDonations = donationsCount || recentDonors?.length || 0;
   const totalRaised = raisedAmount || 0;
-
-  // Use progress percentage from campaign context
-  const progressPercentage = campaign.progressPercentage || 0;
-
-  // Style for progress circle based on percentage
-  const getProgressCircleStyle = () => {
-    const progressDegrees = (progressPercentage / 100) * 360;
-    const backgroundGradient = progressPercentage > 0
-      ? `conic-gradient(#27AE60 0deg ${progressDegrees}deg, #e0e0e0 ${progressDegrees}deg 360deg)`
-      : '#e0e0e0';
-
-    return {
-      background: backgroundGradient,
-    };
-  };
 
   const getImageUrl = () => {
     if (!coverPhoto) return '/placeholder.jpg';
@@ -85,9 +71,13 @@ const FundraiserPreview = ({ onClose, campaignData, navigateToDonatePage, isStan
           <div className="donation-box">
             <div className="amount-container">
               <span className="goal-amount">₹{goalAmount?.toLocaleString()} Goal</span>
-              <div className="progress-circle" style={getProgressCircleStyle()}>
-                <span>{progressPercentage}%</span>
-              </div>
+              <ProgressBar
+                raisedAmount={totalRaised}
+                goalAmount={goalAmount}
+                style="circle"
+                size="medium"
+                showText={false}
+              />
             </div>
             <div className="amounts">
               <span>₹{totalRaised.toLocaleString()} raised</span>

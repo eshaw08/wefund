@@ -6,6 +6,7 @@ import './FormPage.css';
 import icon from '../../assets/icon.png';
 
 const FormPage = () => {
+  // State and navigation
   const [selectedTag, setSelectedTag] = useState(null);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -15,20 +16,23 @@ const FormPage = () => {
   });
   const navigate = useNavigate();
 
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle tag click
   const handleTagClick = (tag) => {
     setSelectedTag(tag === selectedTag ? null : tag);
     setFormData({ ...formData, fundraisingReason: tag });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     // Validate required fields
     if (!formData.country || !formData.zipCode || !formData.fundraisingReason) {
       setError('Please fill in all required fields');
@@ -50,14 +54,14 @@ const FormPage = () => {
       const docRef = await addDoc(collection(db, "campaigns"), {
         ...formData,
         userId: userId,
-        creatorName: creatorName, // Add creatorName
+        creatorName: creatorName,
         createdAt: new Date(),
         status: 'draft'
       });
-      
+
       // Save the campaign ID to localStorage
       localStorage.setItem('campaignId', docRef.id);
-      
+
       console.log("Campaign saved with ID: ", docRef.id);
       navigate('/form1');
     } catch (error) {
@@ -106,7 +110,7 @@ const FormPage = () => {
           <div className="form-group">
             <label>What best describes why you're fundraising?</label>
             <div className="tags">
-              {['Animals', 'Business', 'Community', 'Competitions', 'Creative', 'Education', 'Emergencies', 'Environment', 'Events', 'Faith', 'Family', 'Funerals & Memorials', 'Medical', 'Monthly Bills', 'Newlyweds', 'Sports', 'Travel', 'Ukraine Relief', 'Volunteer', 'Wishes', 'Other'].map((tag) => (
+              {['Animals', 'Business', 'Community', 'Competitions', 'Creative', 'Education', 'Emergencies', 'Environment', 'Events', 'Faith', 'Family', 'Funerals & Memorials', 'Medical', 'Monthly Giving', 'Nonprofit', 'Sports', 'Travel', 'Volunteer', 'Weddings & Honeymoons'].map((tag) => (
                 <button
                   key={tag}
                   type="button"
